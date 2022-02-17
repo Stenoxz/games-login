@@ -61,7 +61,7 @@ public class Bukkit extends JavaPlugin {
             mySQL = new MySQLBuilder().createConnection(new DatabaseCredentials(getConfig().getString("mysql.host"),
                     getConfig().getString("mysql.db"), getConfig().getString("mysql.user"), getConfig().getString("mysql.pass"),
                     getConfig().getInt("mysql.port")));
-            mySQL.executeQuery("CREATE TABLE IF NOT EXISTS `logins` (`name` VARCHAR(16), `pass` VARCHAR(100));");
+            mySQL.executeQuery("CREATE TABLE IF NOT EXISTS `logins` (`name` VARCHAR(16), `pass` VARCHAR(100), `firstLogin` VARCHAR(100), `lastLogin` VARCHAR(100));");
         } else {
             accounts = new ConfigAPI("accounts", this);
         }

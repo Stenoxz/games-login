@@ -52,7 +52,7 @@ public class Command {
                     return;
                 }
                 if (account.isRegistered()) {
-                    player.sendMessage("§cVocê já está registrado, use §e/login <senha>§c.");
+                    player.sendMessage("§cVocê já está registrado, use §e/entrar <senha>§c.");
                     return;
                 }
                 player.sendMessage("§aVocê se registrou.");
@@ -60,7 +60,7 @@ public class Command {
 
                 Bukkit.getPlugin().getServer().getPluginManager().callEvent(new BypassLoginEvent(player));
             }
-        }).onlyPlayer().runAsync().setCommand("register", "registrar");
+        }).onlyPlayer().runAsync().setCommand("cadastrar");
 
         createCommand(new CommandBase() {
             @Override
@@ -70,7 +70,7 @@ public class Command {
                 String password = args[0];
 
                 if (!account.isRegistered()) {
-                    player.sendMessage("§cVocê não está registrado, use §e/register <senha>§c.");
+                    player.sendMessage("§cVocê não está registrado, use §e/registrar <senha>§c.");
                     return;
                 }
                 if (account.getPass().equals(password)) {
@@ -78,7 +78,7 @@ public class Command {
                     Bukkit.getPlugin().getServer().getPluginManager().callEvent(new BypassLoginEvent(player));
                 }
             }
-        }).onlyPlayer().runAsync().setCommand("login", "logar");
+        }).onlyPlayer().runAsync().setCommand("entrar");
     }
 
 }

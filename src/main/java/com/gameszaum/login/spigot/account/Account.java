@@ -9,5 +9,6 @@ public class Account {
     private String name, pass;
     private AccountDao accountDao;
     private boolean premium, logged, registered, captcha;
+    private long firstLogin, lastLogin;
 
 }

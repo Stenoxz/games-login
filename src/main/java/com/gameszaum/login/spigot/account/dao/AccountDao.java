@@ -36,7 +36,8 @@ public class AccountDao {
         if (!premium) {
             if (mySQL != null) {
                 if (!mySQL.contains("logins", "name", player.getName())) {
-                    mySQL.executeQuery("INSERT INTO `logins` (`name`, `pass`) VALUES ('" + player.getName() + "', 'null');");
+                    mySQL.executeQuery("INSERT INTO `logins` (`name`, `pass`, `firstLogin`, `lastLogin`) VALUES ('" + player.getName() + "', 'null', '" +
+                            + System.currentTimeMillis() + "', '" + System.currentTimeMillis() + "');");
                 }
             } else {
                 file.put("accounts." + player.getName() + ".pass", null);
@@ -51,6 +52,9 @@ public class AccountDao {
             if (mySQL != null) {
                 if (mySQL.contains("logins", "name", player.getName())) {
                     account.setPass(mySQL.getString("logins", "name", player.getName(), "pass"));
+                    account.setFirstLogin(mySQL.getLong("logins", "name", player.getName(), "firstLogin"));
+                    account.setLastLogin(System.currentTimeMillis());
+
                 }
             } else {
                 file.getConfigurationSection("accounts").getKeys(false).forEach(s -> {
@@ -59,11 +63,7 @@ public class AccountDao {
                     }
                 });
             }
-            if (account.getPass() != null && !account.getPass().equals("null")) {
-                account.setRegistered(true);
-            } else {
-                account.setRegistered(false);
-            }
+            account.setRegistered(account.getPass() != null && !account.getPass().equals("null"));
         }
         return account;
     }
